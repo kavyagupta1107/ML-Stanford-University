@@ -14,7 +14,11 @@ J = 0;
 %               You should set J to the cost.
 
 
-
+pred=X*theta;
+diff=pred-y;
+sq=diff.^2;
+s=sum(sq);
+J=1/(2*m)*s;
 
 
 % =========================================================================
