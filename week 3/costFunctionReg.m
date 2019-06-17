@@ -10,18 +10,36 @@ m = length(y); % number of training examples
 % You need to return the following variables correctly 
 J = 0;
 grad = zeros(size(theta));
-
+thetasq=theta.^2;
+s=sum(thetasq)-theta(1)*theta(1);
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta.
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
+J=-1/(m)*((y' * log(sigmoid(X*theta)))+(1-y')*log(1-sigmoid(X*theta))) + lambda*s/(2*m);
 
+tempTheta = zeros(size(X, 2), 1);
 
+% Initialize the regularization term for the partial derivatives
+%   to zero, so it handles the case of i = 1 properly
+%
+reg = 0;
 
+for i = 1:size(X, 2)
+    % Compute the regularization term, but handle the special 
+    %   case were the term for theta(1) should be zero
+    %
+    reg(i>1) = (lambda / m) * theta(i);
+    
+    tempTheta(i) = (1 / m) * sum((sigmoid(X*theta) - y) .* X(:,i)) + reg;
+end
+
+grad = tempTheta;
 
 
 
 % =============================================================
 
 end
+
