@@ -16,6 +16,18 @@ p = zeros(m, 1);
 %
 
 
+for i=1:m
+    pred=sigmoid(X(i,:)*theta);
+    if pred>=0.5
+        p(i)=1;
+        
+    else p(i)=0;
+    end
+
+    
+
+    
+end
 
 
 
