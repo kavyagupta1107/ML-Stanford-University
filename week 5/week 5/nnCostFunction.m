@@ -63,6 +63,38 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+Y=zeros(size(y,1),num_labels);
+for i=1:m
+    nu=y(i);
+    Y(i,nu)=1;
+end
+a1=[ones(m,1) X];
+a2=sigmoid(Theta1*a1');
+a3=sigmoid(Theta2*a2);
+err=0;
+for i=1:m
+    for j=1:num_labels
+        ytemp=Y(i,j);
+        htemp=a3(j,i);
+        errortemp=(ytemp*log(htemp))+((1-ytemp)*(log(1-htemp)));
+        err=err+errortemp;
+    end
+end
+err=-1/(m)*err;
+%regularisation
+theta1r=Theta1;
+theta1r(:,1)=zeros(size(Theta1,1),1);
+theta1sum=sum(theta1r.^2);
+s1=sum(theta1sum);
+
+theta2r=Theta2;
+theta2r(:,1)=zeros(size(Theta2,1),1);
+theta2sum=sum(theta2r.^2);
+s2=sum(theta2sum);
+reg=lambda*(s1+s2)/(2*m);
+err=err+reg;
+J=err;
+
 
 
 
