@@ -102,6 +102,8 @@ delta3=a3-Y';
 Theta2n=Theta2(:,2:end);
 delta2=(Theta2n' * delta3).*sigmoidGradient(Theta1*a1');
 
+%backprop not yet done
+
 
 
 
